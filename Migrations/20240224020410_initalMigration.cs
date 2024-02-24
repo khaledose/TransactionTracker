@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace TransactionTracker.Migrations
 {
     /// <inheritdoc />
-    public partial class addMessages : Migration
+    public partial class initalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,18 +16,18 @@ namespace TransactionTracker.Migrations
                 name: "CreditCards",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Bank = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Network = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Last4 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InvoiceStartDay = table.Column<int>(type: "int", nullable: false),
-                    InvoiceDuration = table.Column<int>(type: "int", nullable: false),
-                    Limit = table.Column<double>(type: "float", nullable: false),
-                    InternationalLimit = table.Column<double>(type: "float", nullable: false),
-                    RemainingLimit = table.Column<double>(type: "float", nullable: false),
-                    RemainingInternationalLimit = table.Column<double>(type: "float", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Bank = table.Column<string>(type: "text", nullable: false),
+                    Network = table.Column<string>(type: "text", nullable: false),
+                    Last4 = table.Column<string>(type: "text", nullable: false),
+                    InvoiceStartDay = table.Column<int>(type: "integer", nullable: false),
+                    InvoiceDuration = table.Column<int>(type: "integer", nullable: false),
+                    Limit = table.Column<double>(type: "double precision", nullable: false),
+                    InternationalLimit = table.Column<double>(type: "double precision", nullable: false),
+                    RemainingLimit = table.Column<double>(type: "double precision", nullable: false),
+                    RemainingInternationalLimit = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,10 +38,10 @@ namespace TransactionTracker.Migrations
                 name: "Merchants",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsInternational = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    IsInternational = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,9 +53,9 @@ namespace TransactionTracker.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Sender = table.Column<string>(type: "text", nullable: false),
+                    Body = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,17 +66,17 @@ namespace TransactionTracker.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MessageId = table.Column<long>(type: "bigint", nullable: false),
-                    CreditCardId = table.Column<int>(type: "int", nullable: false),
-                    MerchantId = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsInternational = table.Column<bool>(type: "bit", nullable: false)
+                    CreditCardId = table.Column<int>(type: "integer", nullable: false),
+                    MerchantId = table.Column<int>(type: "integer", nullable: false),
+                    Amount = table.Column<double>(type: "double precision", nullable: false),
+                    Currency = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsInternational = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -16,4 +16,9 @@ public class MessagesRepository
         await _dbContext.Messages.AddRangeAsync(messages);
         _dbContext.SaveChanges();
     }
+
+    public List<Message> GetMessages()
+    {
+        return _dbContext.Messages.ToList();
+    }
 }

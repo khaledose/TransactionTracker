@@ -23,8 +23,8 @@ public class MessagesController : ControllerBase
     }
 
     [HttpGet]
-    public int Test()
+    public List<Message> GetMessages()
     {
-        return 1;
+        return _messageRepository.GetMessages();
     }
 }
