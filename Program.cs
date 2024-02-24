@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<SMSDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseNpgsql(Environment.GetEnvironmentVariable("CONNSTRING"));
 });
 
 builder.Services.AddScoped<MessagesRepository>();
